@@ -172,8 +172,59 @@
 
             const wordsJSON = JSON.stringify(words);
 
-            // Build the bookmarklet payload
-            const payload = `javascript:(function(){var fw=${wordsJSON};var enfl=['way','day','man','war','law','age','act','end','aim','use','job','eye','art','run','cut','aid','key','air','sea','old','new','big','far','own','say','form','door','room','hand','face','rule','name','side','head','part','team','role','unit','view','real','long','high','wide','deep','fast','hard','dark','free','true','full','huge','open','move','hold','play','work','kind','good','best','last','next','said','gave','feel','call','hear','knew','took','came','went','find','live','tell','keep','put','set','lead','meet'];var hefl=['\u05E9\u05DC','\u05E2\u05DD','\u05D0\u05DC','\u05DB\u05D9','\u05DC\u05D0','\u05E8\u05E7','\u05DB\u05DF','\u05D2\u05DD','\u05D0\u05DD','\u05E2\u05D3','\u05D1\u05D9\u05DF','\u05E2\u05D5\u05D3','\u05D0\u05DA','\u05DB\u05DC','\u05DE\u05D4','\u05D6\u05D4','\u05D4\u05DD','\u05D4\u05D9\u05D4','\u05D9\u05E9','\u05DB\u05DA','\u05D0\u05D6','\u05E9\u05DD','\u05DC\u05D5','\u05DC\u05D4','\u05D1\u05D5','\u05D1\u05D4','\u05E2\u05DC','\u05DE\u05DF','\u05D0\u05EA','\u05D0\u05D7\u05E8','\u05E8\u05D0\u05E9','\u05D9\u05D3','\u05E2\u05D9\u05DF','\u05D1\u05D9\u05EA','\u05D9\u05D5\u05DD','\u05DC\u05D1','\u05E4\u05D4','\u05D0\u05E0\u05D5','\u05D0\u05E0\u05D9','\u05D4\u05D5\u05D0','\u05D4\u05D9\u05D0','\u05D4\u05DF','\u05E2\u05DD'];var lang=document.documentElement.lang||'';var isHe=lang.indexOf('he')===0||window.location.hostname.indexOf('he.')===0;var fl=isHe?hefl:enfl;function mc(o,w){if(isHe)return w;if(o===o.toUpperCase()&&o.length>1)return w.toUpperCase();if(o[0]===o[0].toUpperCase())return w[0].toUpperCase()+w.slice(1).toLowerCase();return w.toLowerCase();}var art=document.querySelector('#mw-content-text')||document.body;var wk=document.createTreeWalker(art,NodeFilter.SHOW_TEXT,null,false);var nd=[],n;while(n=wk.nextNode()){var p=n.parentElement;if(p&&['SCRIPT','STYLE','MATH','SUP','NOSCRIPT'].indexOf(p.tagName)<0&&n.textContent.trim())nd.push(n);}var tot=0;var nt=nd.map(function(node){var tk,li=[];if(isHe){tk=node.textContent.split(/([\u05D0-\u05EA\u05F0-\u05F4]+)/);tk.forEach(function(t,i){if(i%2===1&&t.length>=4){li.push(i);tot++;}});}else{tk=node.textContent.split(/\\b/);tk.forEach(function(t,i){if(/^[a-zA-Z]{6,}$/.test(t)){li.push(i);tot++;}});}return{node:node,tk:tk,li:li};});var interval=50;var fps=[];var pos=Math.floor(interval/2+(Math.random()*20-10));while(pos<tot){fps.push(pos);pos+=interval+Math.floor(Math.random()*20-10);}var fset={};fps.forEach(function(p){fset[p]=true;});var fwi=0,gi=0;nt.forEach(function(d){d.li.forEach(function(idx){if(fset[gi]){d.tk[idx]=mc(d.tk[idx],fw[fwi%fw.length]);fwi++;}else{d.tk[idx]=mc(d.tk[idx],fl[Math.floor(Math.random()*fl.length)]);}gi++;});d.node.textContent=d.tk.join('');});})();`;
+            // Hebrew filler: only 3-4 letter words, mix of verbs/nouns/adjectives for naturalness
+            // English filler: 3-5 letter common words
+            const payload = `javascript:(function(){
+var fw=${wordsJSON};
+var enfl=['way','day','man','law','age','act','end','aim','use','job','eye','art','run','cut','aid','key','air','sea','form','door','room','hand','face','rule','name','side','head','part','team','role','unit','view','real','long','high','wide','deep','fast','hard','dark','free','true','full','huge','open','move','hold','play','work','kind','good','best','last','next','said','gave','feel','call','hear','knew','took','came','went','find','live','tell','keep','put','set','lead','meet'];
+var hefl=['\u05D4\u05D9\u05D4','\u05D0\u05DE\u05E8','\u05E8\u05D0\u05D4','\u05D9\u05D3\u05E2','\u05E0\u05EA\u05DF','\u05E2\u05E9\u05D4','\u05D4\u05DC\u05DA','\u05D1\u05D0\u05D4','\u05D9\u05E6\u05D0','\u05E9\u05DE\u05E2','\u05D1\u05D9\u05EA','\u05D3\u05E8\u05DA','\u05D6\u05DE\u05DF','\u05DE\u05E7\u05D5\u05DD','\u05E2\u05D5\u05DC\u05DD','\u05D7\u05DC\u05E7','\u05E1\u05D5\u05D2','\u05D3\u05D1\u05E8','\u05D0\u05E8\u05E5','\u05DE\u05D9\u05DD','\u05D0\u05D5\u05E8','\u05DC\u05D7\u05DD','\u05E9\u05DE\u05DF','\u05E8\u05D5\u05D7','\u05D9\u05DC\u05D3','\u05D0\u05D9\u05E9','\u05DE\u05DE\u05E9','\u05DB\u05D1\u05E8','\u05E2\u05D5\u05D3','\u05D0\u05D7\u05D3','\u05DB\u05D0\u05DF','\u05E7\u05E8\u05D4','\u05E9\u05E0\u05D4','\u05D8\u05D5\u05D1','\u05D9\u05E4\u05D4','\u05E7\u05D8\u05DF','\u05D2\u05D3\u05D5\u05DC','\u05DE\u05D4\u05E8','\u05E8\u05D2\u05E2','\u05D0\u05D7\u05E8','\u05E9\u05D5\u05D1','\u05DB\u05D5\u05D7','\u05D1\u05E7\u05E8','\u05E2\u05E8\u05D1','\u05D9\u05D5\u05DD','\u05E9\u05D1\u05EA','\u05D3\u05DD','\u05E4\u05D4','\u05E2\u05D9\u05DF','\u05DC\u05D1','\u05D9\u05D3','\u05E8\u05D0\u05E9','\u05D1\u05E8\u05D5\u05E8','\u05E0\u05DB\u05D5\u05DF','\u05E4\u05E9\u05D5\u05D8','\u05D7\u05E9\u05D5\u05D1','\u05D0\u05D7\u05E8\u05D9','\u05DC\u05E4\u05E0\u05D9','\u05D4\u05E8\u05D1\u05D4','\u05DE\u05D0\u05D5\u05D3','\u05E1\u05E4\u05E8'];
+var lang=document.documentElement.lang||'';
+var isHe=lang.indexOf('he')===0||window.location.hostname.indexOf('he.')===0;
+var fl=isHe?hefl:enfl;
+function mc(o,w){
+  if(isHe)return w;
+  if(o===o.toUpperCase()&&o.length>1)return w.toUpperCase();
+  if(o[0]===o[0].toUpperCase())return w[0].toUpperCase()+w.slice(1).toLowerCase();
+  return w.toLowerCase();
+}
+var art=document.querySelector('#mw-content-text')||document.body;
+var wk=document.createTreeWalker(art,NodeFilter.SHOW_TEXT,null,false);
+var nd=[],n;
+while(n=wk.nextNode()){
+  var p=n.parentElement;
+  if(p&&['SCRIPT','STYLE','MATH','SUP','NOSCRIPT'].indexOf(p.tagName)<0&&n.textContent.trim())nd.push(n);
+}
+var tot=0;
+var nt=nd.map(function(node){
+  var tk,li=[];
+  if(isHe){
+    tk=node.textContent.split(/([\u05D0-\u05EA\u05F0-\u05F4]{4,})/);
+    tk.forEach(function(t,i){if(i%2===1){li.push(i);tot++;}});
+  }else{
+    tk=node.textContent.split(/\b/);
+    tk.forEach(function(t,i){if(/^[a-zA-Z]{6,}$/.test(t)){li.push(i);tot++;}});
+  }
+  return{node:node,tk:tk,li:li};
+});
+var interval=50;
+var fps=[];
+var pos=Math.floor(interval/2+(Math.random()*16-8));
+while(pos<tot){fps.push(pos);pos+=interval+Math.floor(Math.random()*20-10);}
+var fset={};fps.forEach(function(p){fset[p]=true;});
+var fwi=0,gi=0;
+nt.forEach(function(d){
+  d.li.forEach(function(idx){
+    if(fset[gi]){
+      d.tk[idx]=mc(d.tk[idx],fw[fwi%fw.length]);
+      fwi++;
+    }else{
+      d.tk[idx]=mc(d.tk[idx],fl[Math.floor(Math.random()*fl.length)]);
+    }
+    gi++;
+  });
+  d.node.textContent=d.tk.join('');
+});
+})();`.replace(/\n/g,'');
 
             navigator.clipboard.writeText(payload).then(() => {
                 confirmMsg.style.opacity = '1';
